@@ -66,7 +66,7 @@ class Product(models.Model):
         pass
 
 
-class ProductOrder(models.model):
+class ProductOrder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)
@@ -90,7 +90,7 @@ class ProductOrder(models.model):
 
 class Order(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    products = models.ManyToManyField(ProductOrder, through='ProductOrder')
+    products = models.ManyToManyField(ProductOrder)
     order_data = models.DateTimeField()
     delivered = models.BooleanField()
 
