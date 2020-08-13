@@ -7,7 +7,7 @@ from django_countries.fields import CountryField
 # Create your models here.
 
 class UserProfile(models.Model):
-    User = models.OneToOneField(
+    user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
@@ -25,7 +25,7 @@ class UserProfile(models.Model):
     )
 
     def __str__(self):
-        self.user.username
+        return self.user.username
 
 
 class Product(models.Model):
@@ -73,7 +73,7 @@ class ProductOrder(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return self.user.username
+        return '{0} - {1}'.format(self.user.username, self.product)
 
     def get_price(self):
         pass
@@ -89,9 +89,9 @@ class ProductOrder(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ManyToManyField(ProductOrder)
-    order_data = models.DateTimeField()
+    order_date = models.DateTimeField()
     delivered = models.BooleanField()
 
     def __str__(self):
